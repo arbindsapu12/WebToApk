@@ -3,7 +3,7 @@
   "appName": "MyApp",
   "webDir": "www",
   "server": {
-    "url": "https://www.webtoapk.online",
+    "url": "https://webtoapk.online",
     "cleartext": true
   }
 }
