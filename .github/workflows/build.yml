@@ -45,7 +45,7 @@ jobs:
       - name: Check APK file
         run: find android -name "*.apk"
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
          name: my-apk
          path: android/app/build/outputs/apk/debug/*.apk
