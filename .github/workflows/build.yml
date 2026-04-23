@@ -1,19 +1,42 @@
-- name: Checkout code
-  uses: actions/checkout@v3
+name: Build APK
 
-- name: Setup Node
-  uses: actions/setup-node@v3
-  with:
-    node-version: 18
+on:
+  push:
+    branches: ["main"]
 
-- name: Install dependencies
-  run: npm install
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-- name: Install Capacitor Android
-  run: npm install @capacitor/android
+    steps:
+      - uses: actions/checkout@v3
 
-- name: Init Capacitor
-  run: npx cap init myApp com.myapp.app || true
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-- name: Sync Capacitor
-  run: npx cap sync android
+      # ✅ IMPORTANT: install all dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # ✅ FIX: install capacitor properly
+      - name: Install Capacitor
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      # ✅ init (ignore if already exists)
+      - name: Init App
+        run: npx cap init myapp com.myapp.app || true
+
+      # ❌ REMOVE cap add (problem yahi hai)
+      # ✅ USE sync instead
+      - name: Sync Android
+        run: npx cap sync android
+
+      # (optional) build apk
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
