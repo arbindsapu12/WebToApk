@@ -1,0 +1,9 @@
+{
+  "appId": "com.myapp.app",
+  "appName": "MyApp",
+  "webDir": "www",
+  "server": {
+    "url": "https://www.webtoapk.online",
+    "cleartext": true
+  }
+}
