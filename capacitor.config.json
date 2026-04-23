@@ -1,9 +1,11 @@
 {
   "appId": "com.myapp.app",
-  "appName": "MyApp",
+  "appName": "My Website App",
   "webDir": "www",
   "server": {
     "url": "https://webtoapk.online",
-    "cleartext": true
+    "cleartext": true,
+    "androidScheme": "https",
+    "allowNavigation": ["*"]
   }
 }
