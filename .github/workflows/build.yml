@@ -16,25 +16,27 @@ jobs:
         with:
           node-version: 18
 
-      # ✅ IMPORTANT: install all dependencies
       - name: Install dependencies
         run: npm install
 
-      # ✅ FIX: install capacitor properly
       - name: Install Capacitor
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
 
-      # ✅ init (ignore if already exists)
-      - name: Init App
-        run: npx cap init myapp com.myapp.app || true
+      - name: Create dummy www
+        run: |
+          mkdir -p www
+          echo "<h1>Loading...</h1>" > www/index.html
 
-      # ❌ REMOVE cap add (problem yahi hai)
-      # ✅ USE sync instead
+      - name: Init App
+        run: npx cap init myapp com.myapp.app --web-dir=www || true
+
+      - name: Add Android
+        run: npx cap add android || true
+
       - name: Sync Android
         run: npx cap sync android
 
-      # (optional) build apk
       - name: Build APK
         run: |
           cd android
