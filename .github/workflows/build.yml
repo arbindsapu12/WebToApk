@@ -39,12 +39,15 @@ jobs:
 
       - name: Build APK
         run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug
-
+         cd android
+         chmod +x gradlew
+         ./gradlew assembleDebug
+      - name: Check APK file
+        run: find android -name "*.apk"
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
          name: my-apk
          path: android/app/build/outputs/apk/debug/*.apk
+    
+      
