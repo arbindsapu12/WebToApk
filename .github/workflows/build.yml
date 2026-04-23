@@ -1,34 +1,19 @@
-name: Build APK
+- name: Checkout code
+  uses: actions/checkout@v3
 
-on:
-  push:
-    branches: [ "main" ]
+- name: Setup Node
+  uses: actions/setup-node@v3
+  with:
+    node-version: 18
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+- name: Install dependencies
+  run: npm install
 
-    steps:
-      - uses: actions/checkout@v3
+- name: Install Capacitor Android
+  run: npm install @capacitor/android
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+- name: Init Capacitor
+  run: npx cap init myApp com.myapp.app || true
 
-      - name: Install Capacitor
-        run: |
-          npm install @capacitor/core @capacitor/cli
-
-      - name: Init App
-        run: |
-          npx cap init myapp com.myapp.app --web-dir=.
-
-      - name: Add Android
-        run: |
-          npx cap add android
-
-      - name: Build APK
-        run: |
-          cd android
-          ./gradlew assembleDebug
+- name: Sync Capacitor
+  run: npx cap sync android
